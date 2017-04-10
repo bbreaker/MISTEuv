@@ -1,5 +1,5 @@
 MISTEuvgui <- function() {
   
-  shiny::runApp(display.mode = "normal", launch.browser = TRUE)
+  shiny::runApp(system.file('shiny', package='MISTEuv'), display.mode = "normal", launch.browser = TRUE)
   
 }
