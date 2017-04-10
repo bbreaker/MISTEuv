@@ -1,0 +1,18 @@
+Package: MISTEuv
+Title: Package
+Version: 0.0.0.9000
+Description: Created for the estimation of unit value streamflow data.
+Depends: R (>= 3.3.2)
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+Author: Brian Breaker
+Maintainer: Brian Breaker <bbreaker@usgs.gov>
+Suggests:
+    knitr,
+    testthat,
+    rmarkdown
+Imports:
+  DT,
+  shiny,
+  rmarkdown
