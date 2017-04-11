@@ -123,6 +123,8 @@ ui <- dashboardPage(skin = "black", header, sidebar, body)
 
 server <- function(input, output) ({
   
+  options(shiny.sanitize.errors = TRUE)
+  
   getEstDat <- reactive({
     
     if (input$use2 == FALSE) {
