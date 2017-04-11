@@ -6,7 +6,7 @@ Using MISTEuv
 
 When the web app is launched, error messages will appear.
 
-![Screenshot1](imgFiles/img1.PNG)
+![Screenshot1](imgFiles/img1.png)
 
 Users can enter date ranges and IDs for USGS streamflow-gaging stations in order to begin estimating data.
 
