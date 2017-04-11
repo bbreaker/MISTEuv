@@ -83,7 +83,8 @@ sidebar <- dashboardSidebar(width = 300,
                                                  "date and time peak occurred",
                                                  value = "9999-99-99 99:99:99")
                               ),
-                              downloadButton("downloadData", "Download")
+                              downloadButton("downloadData", "Download Data"),
+                              downloadButton("downloadSum", "Download Summary")
                             )
 )
 
@@ -1092,6 +1093,12 @@ server <- function(input, output) ({
   ##################################################################
   
   source("regCust.R",local=TRUE)$value
+  
+  ##################################################################
+  
+  ##################################################################
+  
+  source("getDataFile.R",local=TRUE)$value
   
   ##################################################################
   
