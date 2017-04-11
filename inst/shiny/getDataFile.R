@@ -10,7 +10,7 @@ output$downloadData <- downloadHandler(
     
     datP <- allMISTEdat(estDat, regDat)
     
-    write.csv(datP, file)
+    write.csv(datP, file, row.names = FALSE)
     
   }
 
