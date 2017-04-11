@@ -15,5 +15,4 @@ Suggests:
 Imports:
   DT,
   shiny,
-  shinydashboard,
-  mgcv
+  shinydashboard
