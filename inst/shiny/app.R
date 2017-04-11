@@ -430,8 +430,6 @@ server <- function(input, output) ({
   
   applySmooth <- function(df) {
     
-    df <- datP
-    
     startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") - as.difftime(30, units = "mins")
     
     endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") + as.difftime(30, units = "mins")
@@ -793,7 +791,7 @@ server <- function(input, output) ({
           
           if (input$smooth == TRUE) {
             
-            datP <- applySmooth(datP)
+            datP <- applySmooth(df = datP)
             
           }
           
@@ -828,7 +826,7 @@ server <- function(input, output) ({
           
           if (input$smooth == TRUE) {
             
-            datP <- applySmooth(datP)
+            datP <- applySmooth(df = datP)
             
           }
           
@@ -861,7 +859,7 @@ server <- function(input, output) ({
           
           if (input$smooth == TRUE) {
             
-            datP <- applySmooth(datP)
+            datP <- applySmooth(df = datP)
             
           }
           
@@ -897,7 +895,7 @@ server <- function(input, output) ({
           
           if (input$smooth == TRUE) {
             
-            datP <- applySmooth(datP)
+            datP <- applySmooth(df = datP)
             
           }
           
@@ -1026,7 +1024,7 @@ server <- function(input, output) ({
       
       if (input$smooth == TRUE) {
         
-        datP <- applySmooth(datP)
+        datP <- applySmooth(df = datP)
         
       }
       
