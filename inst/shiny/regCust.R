@@ -6,6 +6,11 @@ output$regCust <- renderPrint({
   
   datP <- allMISTEdat(estDat, regDat)
   
+  newNames <- c("Estimates for", "Index 1", "Lag for Index 1", "Index 2", "Lag for Index 2", "Summary", "Method", "Adj R-squared", 
+                "Adj R-squared rise", "Adj R-squared fall", "Num of smooth terms", 
+                "Num of smooth terms fall", "Num of smooth term rise", "Regression range", 
+                "Estimation range", "Smoothing applied", "Smoothing date range", "Peak input", "Peak input_date")
+  
   if (input$eventEst == FALSE) {
     
     if (input$use2 == FALSE) {
@@ -14,26 +19,25 @@ output$regCust <- renderPrint({
         
         regObj <- lm(log10(Flow.y) ~ log10(Flow.x), data = regDat)
         
-        newSummary <- list()
-        
-        newSummary[["Estimates for"]] <- input$yID
-        
-        newSummary[["Index 1"]] <- input$xID
-        
-        newSummary[["Index 2"]] <- ""
-        
-        newSummary[["Summary"]] <- "steady"
-        
-        newSummary[["Method"]] <- "linear regression"
-        
-        newSummary[["Adj. R-squared"]] <- summary(regObj)$adj.r.squared
-        
-        newSummary[["Regression range"]] <- paste0(input$regDateSt, " to ", input$regDateEn)
-        
-        newSummary[["Estimation range"]] <- paste0(input$estDateSt, " to ", input$estDateEn)
-        
-        newSummary[["Smoothing"]] <- dplyr::if_else(input$smooth == FALSE, "",
-                                                    paste0(input$smthDateSt, " to ", input$smthDateEn))
+        newSummary <- c(input$yID, 
+                        input$xID, 
+                        input$lag1,
+                        "", 
+                        "",
+                        "steady", 
+                        "linear regression", 
+                        summary(regObj)$adj.r.squared, 
+                        "", 
+                        "", 
+                        "", 
+                        "", 
+                        "", 
+                        paste0(input$regDateSt, " to ", input$regDateEn),
+                        paste0(input$estDateSt, " to ", input$estDateEn),
+                        dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
+                        dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
+                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
         
       }
       
@@ -41,28 +45,25 @@ output$regCust <- renderPrint({
         
         regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts"), data = regDat, select = TRUE)
         
-        newSummary <- list()
-        
-        newSummary[["Estimates for"]] <- input$yID
-        
-        newSummary[["Index 1"]] <- input$xID
-        
-        newSummary[["Index 2"]] <- ""
-        
-        newSummary[["Summary"]] <- "steady"
-        
-        newSummary[["Method"]] <- "gam regression"
-        
-        newSummary[["Adj. R-squared"]] <- summary(regObj)$r.sq
-        
-        newSummary[["Num. of smooth terms"]] <- summary(regObj)$m
-        
-        newSummary[["Regression range"]] <- paste0(input$regDateSt, " to ", input$regDateEn)
-        
-        newSummary[["Estimation range"]] <- paste0(input$estDateSt, " to ", input$estDateEn)
-        
-        newSummary[["Smoothing"]] <- dplyr::if_else(input$smooth == FALSE, "",
-                                                    paste0(input$smthDateSt, " to ", input$smthDateEn))
+        newSummary <- c(input$yID, 
+                        input$xID, 
+                        input$lag1,
+                        "", 
+                        "",
+                        "steady", 
+                        "gam regression", 
+                        summary(regObj)$r.sq, 
+                        "", 
+                        "", 
+                        summary(regObj)$m, 
+                        "", 
+                        "", 
+                        paste0(input$regDateSt, " to ", input$regDateEn),
+                        paste0(input$estDateSt, " to ", input$estDateEn),
+                        dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
+                        dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
+                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
         
       }
       
@@ -74,28 +75,25 @@ output$regCust <- renderPrint({
         
         regObj <- lm(log10(Flow.y) ~ log10(Flow.x) + log10(Flow.x2), data = regDat)
         
-        newSummary <- list()
-        
-        newSummary <- list()
-        
-        newSummary[["Estimates for"]] <- input$yID
-        
-        newSummary[["Index 1"]] <- input$xID
-        
-        newSummary[["Index 2"]] <- input$xID2
-        
-        newSummary[["Summary"]] <- "steady"
-        
-        newSummary[["Method"]] <- "linear regression"
-        
-        newSummary[["Adj. R-squared"]] <- summary(regObj)$adj.r.squared
-        
-        newSummary[["Regression range"]] <- paste0(input$regDateSt, " to ", input$regDateEn)
-        
-        newSummary[["Estimation range"]] <- paste0(input$estDateSt, " to ", input$estDateEn)
-        
-        newSummary[["Smoothing"]] <- dplyr::if_else(input$smooth == FALSE, "",
-                                                    paste0(input$smthDateSt, " to ", input$smthDateEn))
+        newSummary <- c(input$yID, 
+                        input$xID, 
+                        input$lag1,
+                        input$xID2, 
+                        input$lag2,
+                        "steady", 
+                        "linear regression", 
+                        summary(regObj)$adj.r.squared, 
+                        "", 
+                        "", 
+                        "", 
+                        "", 
+                        "", 
+                        paste0(input$regDateSt, " to ", input$regDateEn),
+                        paste0(input$estDateSt, " to ", input$estDateEn),
+                        dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
+                        dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
+                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
         
       }
       
@@ -104,34 +102,31 @@ output$regCust <- renderPrint({
         regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts") + 
                         s(log10(Flow.x2), bs = "ts"), data = regDat, select = TRUE)
         
-        newSummary <- list()
-        
-        newSummary[["Estimates for"]] <- input$yID
-        
-        newSummary[["Index 1"]] <- input$xID
-        
-        newSummary[["Index 2"]] <- input$xID2
-        
-        newSummary[["Summary"]] <- "steady"
-        
-        newSummary[["Method"]] <- "gam regression"
-        
-        newSummary[["Adj. R-squared"]] <- summary(regObj)$r.sq
-        
-        newSummary[["Num. of smooth terms"]] <- summary(regObj)$m
-        
-        newSummary[["Regression range"]] <- paste0(input$regDateSt, " to ", input$regDateEn)
-        
-        newSummary[["Estimation range"]] <- paste0(input$estDateSt, " to ", input$estDateEn)
-        
-        newSummary[["Smoothing"]] <- dplyr::if_else(input$smooth == FALSE, "",
-                                                    paste0(input$smthDateSt, " to ", input$smthDateEn))
+        newSummary <- c(input$yID, 
+                        input$xID, 
+                        input$lag1,
+                        input$xID2, 
+                        input$lag2,
+                        "steady", 
+                        "gam regression", 
+                        summary(regObj)$r.sq, 
+                        "", 
+                        "", 
+                        summary(regObj)$m, 
+                        "", 
+                        "", 
+                        paste0(input$regDateSt, " to ", input$regDateEn),
+                        paste0(input$estDateSt, " to ", input$estDateEn),
+                        dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
+                        dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
+                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
         
       }
       
     }
     
-    print(newSummary, row.names = FALSE)
+    cat(paste(newNames, ":", newSummary))
     
   }
   
@@ -207,41 +202,28 @@ output$regCust <- renderPrint({
     
     regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts"), data = regDat, select = TRUE)
     
-    newSummary <- list()
-    
-    newSummary[["Estimates for"]] <- input$yID
-    
-    newSummary[["Index 1"]] <- input$xID
-    
-    newSummary[["Index 2"]] <- ""
-    
-    newSummary[["Summary"]] <- "event"
-    
-    newSummary[["Method"]] <- "gam regression"
-    
-    newSummary[["Adj. R-squared rise"]] <- summary(regObjRise)$r.sq
-    
-    newSummary[["Adj. R-squared fall"]] <- summary(regObjFall)$r.sq
-    
-    newSummary[["Num. of smooth terms rise"]] <- summary(regObjRise)$m
-    
-    newSummary[["Num. of smooth terms fall"]] <- summary(regObjFall)$m
-    
-    newSummary[["Num. of smooth terms"]] <- summary(regObj)$m
-    
-    newSummary[["Regression range"]] <- paste0(input$regDateSt, " to ", input$regDateEn)
-    
-    newSummary[["Estimation range"]] <- paste0(input$estDateSt, " to ", input$estDateEn)
-    
-    newSummary[["Smoothing"]] <- dplyr::if_else(input$smooth == FALSE, "",
-                                                paste0(input$smthDateSt, " to ", input$smthDateEn))
-    
-    newSummary[["Peak input"]] <- dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse)
-    
-    newSummary[["Peak input date"]] <- dplyr::if_else(input$peakDate == FALSE, "", input$peakDate)
+    newSummary <- c(input$yID, 
+                    input$xID, 
+                    input$lag1,
+                    "", 
+                    "",
+                    "steady", 
+                    "gam regression", 
+                    summary(regObj)$r.sq, 
+                    "", 
+                    "", 
+                    summary(regObj)$m, 
+                    "", 
+                    "", 
+                    paste0(input$regDateSt, " to ", input$regDateEn),
+                    paste0(input$estDateSt, " to ", input$estDateEn),
+                    dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
+                    dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
+                    dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
+                    dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
     
   }
   
-  print(newSummary, row.names = FALSE)
+  cat(paste(newNames, ":", newSummary))
   
 })
