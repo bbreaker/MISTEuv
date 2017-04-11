@@ -8,7 +8,6 @@ library(scales)
 library(dataRetrieval)
 library(zoo)
 library(lubridate)
-library(gam)
 library(mgcv)
 
 options(DT.options = list(pageLength = 7, language = list(search = 'Filter:')))
