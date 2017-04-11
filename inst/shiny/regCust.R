@@ -131,7 +131,7 @@ output$regCust <- renderPrint({
       
     }
     
-    newSummary
+    print(newSummary, row.names = FALSE)
     
   }
   
@@ -242,6 +242,6 @@ output$regCust <- renderPrint({
     
   }
   
-  newSummary
+  print(newSummary, row.names = FALSE)
   
 })
