@@ -40,8 +40,8 @@ getBestOffset <- function(regDat){
   
   bestOffset <- max(offsetDat$correlation, na.rm = TRUE)
   
-  offsetDatNew <- offsetDat[which(offsetDat$correlation == bestOffset),]
+  offsetDat <- offsetDat[which(offsetDat$correlation == bestOffset),]
   
-  return(offSetDatNew$offset)
+  return(offsetDat$offset)
   
 }
