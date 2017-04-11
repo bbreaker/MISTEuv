@@ -1,6 +1,6 @@
 output$downloadSum <- downloadHandler(
   
-  filename = function() {paste0("data", input$yID, ".mud")},
+  filename = function() {paste0("summary", input$yID, ".mus")},
   
   content =  function(file) {
     
@@ -226,8 +226,10 @@ output$downloadSum <- downloadHandler(
       
     }
     
-    writeLines(cat(paste0(newNames, ": ", newSummary, "\n"), file))
+    writeLines(cat(paste0(newNames, ": ", newSummary, "\n")), file)
     
-  }
+  },
+  
+  contentType = "text/plain"
   
 )
