@@ -36,8 +36,8 @@ output$regCust <- renderPrint({
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
-                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
         
       }
       
@@ -62,8 +62,8 @@ output$regCust <- renderPrint({
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
-                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
         
       }
       
@@ -92,8 +92,8 @@ output$regCust <- renderPrint({
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
-                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
         
       }
       
@@ -119,14 +119,14 @@ output$regCust <- renderPrint({
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
-                        dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
         
       }
       
     }
     
-    cat(paste(newNames, ":", newSummary, "\n"))
+    cat(paste0(newNames, ": ", newSummary, "\n"))
     
   }
   
@@ -209,21 +209,21 @@ output$regCust <- renderPrint({
                     "",
                     "steady", 
                     "gam regression", 
-                    summary(regObj)$r.sq, 
                     "", 
+                    summary(regObjRise)$r.sq, 
+                    summary(regObjFall)$r.sq, 
                     "", 
-                    summary(regObj)$m, 
-                    "", 
-                    "", 
+                    summary(regObjRise)$m, 
+                    summary(regObjFall)$m, 
                     paste0(input$regDateSt, " to ", input$regDateEn),
                     paste0(input$estDateSt, " to ", input$estDateEn),
                     dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                     dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
-                    dplyr::if_else(input$peakToUse == FALSE, "", input$peakToUse),
-                    dplyr::if_else(input$peakDate == FALSE, "", input$peakDate))
+                    dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
+                    dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
     
   }
   
-  cat(paste(newNames, ":", newSummary, "\n"))
+  cat(paste0(newNames, ": ", newSummary, "\n"))
   
 })
