@@ -456,7 +456,7 @@ server <- function(input, output) ({
                            Smoothed = signif(smPeriod$Smoothed, 3), 
                            adjResid = signif(smPeriod$adjResid, 3))
     
-    datP <- merge(x = datP, y = smPeriod, by = "dateTime", all.x = TRUE)
+    datP <- merge(x = df, y = smPeriod, by = "dateTime", all.x = TRUE)
     
     return(datP)
     
