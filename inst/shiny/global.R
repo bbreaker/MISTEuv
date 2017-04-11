@@ -12,3 +12,6 @@ library(gam)
 library(mgcv)
 
 options(DT.options = list(pageLength = 7, language = list(search = 'Filter:')))
+
+source("allMISTEdat.R")
+
