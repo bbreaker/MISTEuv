@@ -458,6 +458,8 @@ server <- function(input, output) ({
     
     datP <- merge(x = datP, y = smPeriod, by = "dateTime", all.x = TRUE)
     
+    return(datP)
+    
   }
   
   getRegDat <- reactive({
