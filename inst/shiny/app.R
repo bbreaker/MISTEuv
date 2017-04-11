@@ -8,7 +8,6 @@ library(scales)
 library(dataRetrieval)
 library(zoo)
 library(lubridate)
-library(gam)
 library(mgcv)
 
 source("global.R")
