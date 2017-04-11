@@ -8,6 +8,8 @@ output$plotSmth <- renderPlot({
     
     datP <- allMISTEdat(estDat, regDat)
     
+    datP <- dplyr::filter(datP, !is.na(Smoothed))
+    
     if (input$use2 == FALSE) {
       
       if (input$log10 == FALSE) {
