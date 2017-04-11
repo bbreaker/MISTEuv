@@ -126,8 +126,6 @@ output$regCust <- renderPrint({
       
     }
     
-    cat(paste0(newNames, ": ", newSummary, "\n"))
-    
   }
   
   else if (input$eventEst == TRUE) {
