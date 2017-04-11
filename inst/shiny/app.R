@@ -426,15 +426,15 @@ server <- function(input, output) ({
     
   })
   
-  applySmooth <- function(datP) {
+  applySmooth <- function(df) {
     
-    startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") 
-    - as.difftime(30, units = "mins")
+    df <- datP
     
-    endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") 
-    + as.difftime(30, units = "mins")
+    startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") - as.difftime(30, units = "mins")
     
-    smPeriod <- dplyr::filter(datP, dateTime >= startSm & dateTime <= endSm)
+    endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") + as.difftime(30, units = "mins")
+    
+    smPeriod <- dplyr::filter(df, dateTime >= startSm & dateTime <= endSm)
     
     allResids <- smPeriod$Flow.y - smPeriod$Estimated
     
