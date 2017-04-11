@@ -209,7 +209,7 @@ output$downloadSum <- downloadHandler(
                       input$lag1,
                       "", 
                       "",
-                      "steady", 
+                      "event", 
                       "gam regression", 
                       "", 
                       summary(regObjRise)$r.sq, 
