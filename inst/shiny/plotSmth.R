@@ -28,7 +28,7 @@ output$plotSmth <- renderPlot({
         
       }
       
-      else if (inputlog10 == TRUE) {
+      else if (input$log10 == TRUE) {
         
         p <- ggplot(data = datP, aes(x = dateTime, y = Flow.y, color = paste0("y-", input$yID))) +
           geom_line() +
