@@ -1,6 +1,6 @@
 Package: MISTEuv
 Title: Package
-Version: 0.0.0.9000
+Version: 1.0
 Description: Created for the estimation of unit value streamflow data.
 Depends: R (>= 3.3.2)
 License: GPL (>=2)
