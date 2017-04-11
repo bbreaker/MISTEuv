@@ -10,10 +10,8 @@ output$downloadData <- downloadHandler(
     
     datP <- allMISTEdat(estDat, regDat)
     
-    DT::datatable(datP, options = list(scrollX = TRUE, scrolly = TRUE), rownames = FALSE)
+    write.csv(datP, file)
     
   }
-  
-  write.csv(datP, file)
-  
+
 )
