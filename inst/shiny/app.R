@@ -434,7 +434,7 @@ server <- function(input, output) ({
     endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") 
     + as.difftime(30, units = "mins")
     
-    smPeriod <- subset(datP, dateTime >= startSm & dateTime <= endSm)
+    smPeriod <- dplyr::filter(datP, dateTime >= startSm & dateTime <= endSm)
     
     allResids <- smPeriod$Flow.y - smPeriod$Estimated
     
@@ -452,7 +452,8 @@ server <- function(input, output) ({
     
     smPeriod$Smoothed <- smPeriod$Estimated + smPeriod$adjResid
     
-    smPeriod <- data.frame(dateTime = smPeriod$dateTime, Smoothed = signif(smPeriod$Smoothed, 3), 
+    smPeriod <- data.frame(dateTime = as.POSIXct(smPeriod$dateTime, format = "%Y-%m-%d %H:%M:%S"), 
+                           Smoothed = signif(smPeriod$Smoothed, 3), 
                            adjResid = signif(smPeriod$adjResid, 3))
     
     datP <- merge(x = datP, y = smPeriod, by = "dateTime", all.x = FALSE)
@@ -781,8 +782,10 @@ server <- function(input, output) ({
           
           datPred[,(1:4)] <- 10^datPred[,(1:4)]
           
-          datPred <- data.frame(Estimated = datPred$fit.fit, fitUpper = datPred$fit.upr, 
-                                fitLower = datPred$fit.lwr, standardError = datPred$se.fit)
+          datPred <- data.frame(Estimated = signif(datPred$fit.fit, 3), 
+                                fitUpper = signif(datPred$fit.upr, 3), 
+                                fitLower = signif(datPred$fit.lwr, 3), 
+                                standardError = signif(datPred$se.fit, 3))
           
           datP <- cbind(estDat, datPred)
           
@@ -814,8 +817,10 @@ server <- function(input, output) ({
           
           lwr <- regObj$family$linkinv(lwr)
           
-          datPred <- data.frame(Estimated = 10^(datPred$fit), fitUpper = 10^(upr), 
-                                fitLower = 10^(lwr), standardError = datPred$se.fit)
+          datPred <- data.frame(Estimated = signif(10^(datPred$fit), 3), 
+                                fitUpper = signif(10^(upr), 3), 
+                                fitLower = signif(10^(lwr), 3), 
+                                standardError = signif(datPred$se.fit, 3))
           
           datP <- cbind(estDat, datPred)
           
@@ -845,8 +850,10 @@ server <- function(input, output) ({
           
           datPred[,(1:4)] <- 10^datPred[,(1:4)]
           
-          datPred <- data.frame(Estimated = datPred$fit.fit, fitUpper = datPred$fit.upr, 
-                                fitLower = datPred$fit.lwr, standardError = datPred$se.fit)
+          datPred <- data.frame(Estimated = signif(datPred$fit.fit, 3), 
+                                fitUpper = signif(datPred$fit.upr, 3), 
+                                fitLower = signif(datPred$fit.lwr, 3), 
+                                standardError = signif(datPred$se.fit, 3))
           
           datP <- cbind(estDat, datPred)
           
@@ -879,8 +886,10 @@ server <- function(input, output) ({
           
           lwr <- regObj$family$linkinv(lwr)
           
-          datPred <- data.frame(Estimated = 10^(datPred$fit), fitUpper = 10^(upr), 
-                                fitLower = 10^(lwr), standardError = datPred$se.fit)
+          datPred <- data.frame(Estimated = signif(10^(datPred$fit), 3), 
+                                fitUpper = signif(10^(upr), 3), 
+                                fitLower = signif(10^(lwr), 3), 
+                                standardError = signif(datPred$se.fit, 3))
           
           datP <- cbind(estDat, datPred)
           
@@ -1006,8 +1015,10 @@ server <- function(input, output) ({
       
       datPred <- dplyr::bind_rows(datPredRise, datPredFall)
       
-      datPred <- data.frame(Estimated = signif(datPred$Estimated, 3), fitUpper = signif(datPred$fitUpper, 3),
-                            fitLower = signif(datPred$fitLower, 3), standardError = signif(datPred$standardError, 3))
+      datPred <- data.frame(Estimated = signif(datPred$Estimated, 3), 
+                            fitUpper = signif(datPred$fitUpper, 3),
+                            fitLower = signif(datPred$fitLower, 3), 
+                            standardError = signif(datPred$standardError, 3))
       
       datP <- dplyr::bind_cols(estDat, datPred)
       
