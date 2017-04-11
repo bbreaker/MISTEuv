@@ -226,9 +226,9 @@ output$downloadSum <- downloadHandler(
       
     }
     
-    newDat <- data.frame(paste0(newNames, ": ", newSummary))
+    newDat <- data.frame(MISTEuv_v1.0 = paste0(newNames, ": ", newSummary))
     
-    write.csv(newDat, file, row.names = FALSE, col.names = FALSE, quote = FALSE)
+    write.csv(newDat, file, row.names = FALSE, quote = FALSE)
     
   }
   
