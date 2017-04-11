@@ -9,7 +9,6 @@ library(dataRetrieval)
 library(zoo)
 library(lubridate)
 library(mgcv)
-library(nlme)
 
 source("global.R")
 
