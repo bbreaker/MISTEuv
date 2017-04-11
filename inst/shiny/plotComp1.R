@@ -1,12 +1,8 @@
 output$plotComp1 <- renderPlot({
   
-  estDat <- getEstDat()
-  
   regDat <- getRegDat()
   
-  datP <- allMISTEdat(estDat, regDat)
-  
-  bestOffsetVal <- getBestOffset(datP) 
+  bestOffsetVal <- getBestOffset(regDat) 
   
   if(input$lag1 == 0) {
     
