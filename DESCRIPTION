@@ -15,4 +15,5 @@ Suggests:
 Imports:
   DT,
   shiny,
-  rmarkdown
+  shinydashboard,
+  mgcv
