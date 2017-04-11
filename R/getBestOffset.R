@@ -1,4 +1,4 @@
-getBestOffset <- function(df){
+getBestOffset <- function(regDat){
   
   df <- regDat
   
@@ -6,7 +6,7 @@ getBestOffset <- function(df){
   
   for (i in seq(-1440, 1440, 15)) {
     
-    datOffset <- regDat
+    datOffset <- df
     
     if(i >= 0) {
       
