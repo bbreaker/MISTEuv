@@ -9,6 +9,7 @@ library(dataRetrieval)
 library(zoo)
 library(lubridate)
 library(mgcv)
+library(gam)
 
 source("global.R")
 
