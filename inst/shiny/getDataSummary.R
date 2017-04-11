@@ -226,10 +226,10 @@ output$downloadSum <- downloadHandler(
       
     }
     
-    writeLines(cat(paste0(newNames, ": ", newSummary, "\n")), file)
+    newDat <- data.frame(paste0(newNames, ": ", newSummary))
     
-  },
-  
-  contentType = "text/plain"
+    write.csv(newDat, file, row.names = FALSE, col.names = FALSE, quote = FALSE)
+    
+  }
   
 )
