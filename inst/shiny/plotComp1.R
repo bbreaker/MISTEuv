@@ -12,7 +12,7 @@ output$plotComp1 <- renderPlot({
         geom_line(data = regDat, aes(x = dateTime, y = Flow.y, color = paste0("y-", input$yID))) +
         geom_line(data = regDat, aes(x = dateTime, y = Flow.x, color = paste0("x-", input$xID)), linetype = "dotdash") +
         annotate("text", label = paste0("calculated best time offset = ", bestOffsetVal, " minutes"), 
-                 y = 0.99*(max(regDat$Flow.x)), x = as.POSIXct(regDat[nrow(regDat)/2,1], format = "%Y-%m-%d %H:%M:%S")) + 
+                 y = 0.99*(max(regDat$Flow.x)), x = mean(regDat$dateTime)) + 
         labs(x = "Date", y = "Discharge, in cubic feet per second") +
         theme_bw() + theme(legend.title = element_blank())
       
@@ -25,7 +25,7 @@ output$plotComp1 <- renderPlot({
         geom_line(data = regDat, aes(x = dateTime, y = Flow.x, color = paste0("x-", input$xID)), linetype = "dotdash") +
         scale_y_log10() +
         annotate("text", label = paste0("calculated best time offset = ", bestOffsetVal, " minutes"),
-                 y = 0.99*(max(regDat$Flow.x)), x = as.POSIXct(regDat[nrow(regDat)/2,1], format = "%Y-%m-%d %H:%M:%S")) + 
+                 y = 0.99*(max(regDat$Flow.x)), x = mean(regDat$dateTime)) + 
         annotation_logticks(sides = "rl") +
         labs(x = "Date", y = "Discharge, in cubic feet per second") +
         theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
