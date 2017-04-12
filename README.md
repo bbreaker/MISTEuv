@@ -1,7 +1,7 @@
 MISTEuv (Beta)
 --------------
 
-MISTEuv was developed to estimate missing unit-value streamflow data for USGS streamflow-gaging stations. Estimates are generated using a generalized additive model (GAM) with one or two index streamflow gaging stations.
+MISTEuv was developed to estimate missing unit-value streamflow data for USGS streamflow-gaging stations. Estimates are generated using a generalized additive model (GAM) with one or two index streamflow-gaging stations.
 
 Software
 --------
