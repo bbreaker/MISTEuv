@@ -1,9 +1,6 @@
 MISTEuv demo
 ================
 
-Using MISTEuv
--------------
-
 When the web app is launched, error messages will appear.
 
 ![Screenshot1](imgFiles/img1.png)
