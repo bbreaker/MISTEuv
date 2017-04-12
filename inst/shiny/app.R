@@ -8,6 +8,7 @@ library(scales)
 library(dataRetrieval)
 library(zoo)
 library(lubridate)
+library(gam)
 library(mgcv)
 
 source("global.R")
@@ -129,15 +130,15 @@ server <- function(input, output) ({
     
     if (input$use2 == FALSE) {
       
-      startDateP <- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S")
+      startDateP <- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
-      endDateP <- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S")
+      endDateP <- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
       datyP <- tryCatch({
         
         readNWISuv(siteNumber = input$yID, startDate = format(startDateP, "%Y-%m-%d"), 
                    endDate = format(endDateP, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -155,7 +156,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber = input$xID, startDate = format(startDateP, "%Y-%m-%d"),
                    endDate = format(endDateP, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -225,15 +226,15 @@ server <- function(input, output) ({
     
     else if (input$use2 == TRUE) {
       
-      startDateP <- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S")
+      startDateP <- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
-      endDateP <- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S")
+      endDateP <- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
       datyP <- tryCatch({
         
         readNWISuv(siteNumber=input$yID, startDate = format(startDateP, "%Y-%m-%d"), 
                    endDate = format(endDateP, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -251,7 +252,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber = input$xID, startDate = format(startDateP, "%Y-%m-%d"),
                    endDate = format(endDateP, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -269,7 +270,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber = input$xID2, startDate = format(startDateP, "%Y-%m-%d"),
                    endDate = format(endDateP, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -430,9 +431,9 @@ server <- function(input, output) ({
   
   applySmooth <- function(df) {
     
-    startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") - as.difftime(30, units = "mins")
+    startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") - as.difftime(30, units = "mins")
     
-    endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") + as.difftime(30, units = "mins")
+    endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") + as.difftime(30, units = "mins")
     
     smPeriod <- dplyr::filter(df, dateTime >= startSm & dateTime <= endSm)
     
@@ -466,15 +467,15 @@ server <- function(input, output) ({
     
     if (input$use2 == FALSE) {
       
-      startDate <- as.POSIXct(input$regDateSt, format = "%Y-%m-%d %H:%M:%S")
+      startDate <- as.POSIXct(input$regDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
-      endDate <- as.POSIXct(input$regDateEn, format = "%Y-%m-%d %H:%M:%S")
+      endDate <- as.POSIXct(input$regDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
       daty <- tryCatch({
         
         readNWISuv(siteNumber = input$yID, startDate = format(startDate, "%Y-%m-%d"), 
                    endDate = format(endDate, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -492,7 +493,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber = input$xID, startDate = format(startDate, "%Y-%m-%d"),
                    endDate = format(endDate, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -561,15 +562,15 @@ server <- function(input, output) ({
     
     else if (input$use2 == TRUE) {
       
-      startDate <- as.POSIXct(input$regDateSt, format = "%Y-%m-%d %H:%M:%S")
+      startDate <- as.POSIXct(input$regDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
-      endDate <- as.POSIXct(input$regDateEn, format = "%Y-%m-%d %H:%M:%S")
+      endDate <- as.POSIXct(input$regDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
       
       daty <- tryCatch({
         
         readNWISuv(siteNumber=input$yID, startDate = format(startDate, "%Y-%m-%d"), 
                    endDate = format(endDate, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -587,7 +588,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber=input$xID, startDate = format(startDate, "%Y-%m-%d"),
                    endDate = format(endDate, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -605,7 +606,7 @@ server <- function(input, output) ({
         
         readNWISuv(siteNumber=input$xID2, startDate = format(startDate, "%Y-%m-%d"),
                    endDate = format(endDate, "%Y-%m-%d"), parameterCd = "00060",
-                   tz = Sys.timezone())
+                   tz = "")
         
       },
       
@@ -961,7 +962,7 @@ server <- function(input, output) ({
         
         maxQP <- as.numeric(input$peakToUse)
         
-        maxQPdt <- as.POSIXct(input$peakDate, format = "%Y-%m-%d %H:%M:%S")
+        maxQPdt <- as.POSIXct(input$peakDate, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
         
         estDatRise <- estDat[estDat$dateTime <= maxQPdt,]
         
