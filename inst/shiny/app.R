@@ -366,7 +366,7 @@ server <- function(input, output) ({
         
         absLag1 <- abs(adjustLag1)
         
-        regdatP$Flow.x <- dplyr::lag(datP$Flow.x, absLag1)
+        datP$Flow.x <- dplyr::lag(datP$Flow.x, absLag1)
         
         return(datP)
         
