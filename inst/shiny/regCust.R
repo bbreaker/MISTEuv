@@ -232,6 +232,6 @@ output$regCust <- renderPrint({
     
   }
   
-  cat(paste0(newNames, ": ", newSummary, "\n"))
+  cat(paste0(newNames, "= ", newSummary, "\n"))
   
 })
