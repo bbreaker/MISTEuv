@@ -97,7 +97,7 @@ sidebar <- dashboardSidebar(width = 300,
                                        textInput("peakDate",
                                                  "Dates/times observations occurred (UTC)",
                                                  value = "9999-99-99 99:99:99"),
-                                       testInput("riseFall",
+                                       textInput("riseFall",
                                                  "Rising or falling (IE rise, fall)",
                                                  value = "rise")
                               ),
