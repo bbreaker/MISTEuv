@@ -1053,7 +1053,7 @@ server <- function(input, output) ({
         ObsDf <- data.frame(dateTime = as.POSIXct(addDTs, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
                             site_no.y = "user", Flow.y = addQs, event = addRiseFall)
         
-        estDat <- dplyr::left_join(x = estDat, y = obsDf, by = "dateTime")
+        estDat <- dplyr::left_join(x = estDat, y = ObsDf, by = "dateTime")
         
         estDat$Flow.y.x <- if_else(is.na(estDat$Flow.y.x), estDat$Flow.y.y, estDat$Flow.y.x)
         
