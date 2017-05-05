@@ -1057,9 +1057,9 @@ server <- function(input, output) ({
         
         estDat$Flow.y1 <- if_else(is.na(estDat$Flow.y1), estDat$Flow.y2, estDat$Flow.y1)
         
-        estDat$site_no.y1 <- if_else(!is.na(estDat$site_no.y2), estDat$site_no.y2, estDat$site_no.y1)
+        estDat$site_no.y1 <- ifelse(!is.na(estDat$site_no.y2), estDat$site_no.y2, estDat$site_no.y1)
         
-        estDat$event1 <- if_else(!is.na(estDat$event2), estDat$event2, estDat$event1)
+        estDat$event1 <- ifelse(!is.na(estDat$event2), estDat$event2, estDat$event1)
         
         estDat <- estDat[,-c(11:13)]
         
