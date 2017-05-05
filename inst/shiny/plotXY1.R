@@ -36,6 +36,8 @@ output$plotXY1 <- renderPlot({
              y = paste0("Discharge, in cubic feet per second \n for ", input$yID)) + 
         theme_bw() + theme(legend.title = element_blank())
       
+      p
+      
     }
     
     else if (input$adjKnots == TRUE) {
