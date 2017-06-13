@@ -10,7 +10,10 @@ Copyright: This software is in the public domain because it contains materials
     the United States Department of Interior.
 Encoding: UTF-8
 LazyData: true
-Author: Brian Breaker
+Authors@R: c( person("Brian", "Breaker", role = c("aut","cre"),
+    email = "bbreaker@usgs.gov"),
+    person("William", "Asquith", role = c("aut"),
+    email = "wasquith@usgs.gov"))
 Maintainer: Brian Breaker <bbreaker@usgs.gov>
 Suggests:
     knitr,
@@ -19,4 +22,7 @@ Suggests:
 Imports:
   DT,
   shiny,
+  shinydashboard,
+  mgcv,
+  dataRetrieval,
   rmarkdown
