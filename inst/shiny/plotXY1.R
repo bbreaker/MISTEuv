@@ -32,7 +32,7 @@ output$plotXY1 <- renderPlot({
         scale_x_log10() +
         annotation_logticks(sides = "trbl") +
         stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs")) +
-        labs(x = paste0("Discharge, in cubic feet per second \n for ", input$xID2), 
+        labs(x = paste0("Discharge, in cubic feet per second \n for ", input$xID), 
              y = paste0("Discharge, in cubic feet per second \n for ", input$yID)) + 
         theme_bw() + theme(legend.title = element_blank())
       
@@ -48,7 +48,7 @@ output$plotXY1 <- renderPlot({
         scale_x_log10() +
         annotation_logticks(sides = "trbl") +
         stat_smooth(method = "gam", formula = y ~ s(x, bs = "cr", k = input$knots)) +
-        labs(x = paste0("Discharge, in cubic feet per second \n for ", input$xID2), 
+        labs(x = paste0("Discharge, in cubic feet per second \n for ", input$xID), 
              y = paste0("Discharge, in cubic feet per second \n for ", input$yID)) + 
         theme_bw() + theme(legend.title = element_blank())
       
