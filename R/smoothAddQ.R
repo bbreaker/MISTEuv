@@ -6,6 +6,10 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
   
   smPeriod <- dplyr::left_join(x = smPeriod, y = ObsDf, by = "dateTime")
   
+  allResids <- smPeriod$Flow.y - smPeriod$Estimated
+  
+  leftResid <- (allResids[1] + allResids[2]) / 2
+  
   if(nrow(ObsDf) == 1) {
     
     smPeriodLeft <- dplyr::filter(smPeriod, dateTime <= ObsDf$dateTime)
