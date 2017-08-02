@@ -116,7 +116,7 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
     
   }
   
-  datP <- dplyr::left_join(x = datP, y = smPeriod, by = "dateTime")
+  datP <- dplyr::left_join(x = df, y = smPeriod, by = "dateTime")
   
   return(datP)
   
