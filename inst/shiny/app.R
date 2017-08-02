@@ -104,8 +104,9 @@ sidebar <- dashboardSidebar(width = 300,
                                                  "Observed/estimated peak for response station", 
                                                  value = "NA")
                               ),
-                              downloadButton("downloadData", "Download Data"),
-                              downloadButton("downloadSum", "Download Summary")
+                                  submitButton("Apply changes", icon("paper-plane")),
+                                  downloadButton("downloadData", "Download Data"),
+                                  downloadButton("downloadSum", "Download Summary")
                             )
 )
 
