@@ -10,6 +10,8 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
   
   leftResid <- (allResids[1] + allResids[2]) / 2
   
+  rightResid <- ((allResids[(length(allResids))]) + (allResids[(length(allResids) - 1)])) / 2
+  
   if(nrow(ObsDf) == 1) {
     
     smPeriodLeft <- dplyr::filter(smPeriod, dateTime <= ObsDf$dateTime)
