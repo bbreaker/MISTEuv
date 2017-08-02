@@ -26,6 +26,7 @@ header <- dashboardHeader(title = "MISTEuv", titleWidth = 300,
 
 sidebar <- dashboardSidebar(width = 300, 
                             sidebarMenu(
+                              submitButton("Apply changes", icon("paper-plane")),
                               menuItem("Data Estimation", tabName = "tabset2",
                                        checkboxInput("log10", 
                                                      "Plot y axis in log10 scale for time series plots", 
@@ -104,7 +105,6 @@ sidebar <- dashboardSidebar(width = 300,
                                                  "Observed/estimated peak for response station", 
                                                  value = "NA")
                               ),
-                                  submitButton("Apply changes", icon("paper-plane")),
                                   downloadButton("downloadData", "Download Data"),
                                   downloadButton("downloadSum", "Download Summary")
                             )

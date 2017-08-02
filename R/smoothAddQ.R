@@ -1,6 +1,6 @@
 smoothAddQ <- function(df, ObsDf, startSm, endSm) {
   
-  smPeriod <- subset(datP, dateTime >= startSm & dateTime <= endSm)
+  smPeriod <- subset(df, dateTime >= startSm & dateTime <= endSm)
   
   smPeriod$Estimated <- as.numeric(smPeriod$Estimated)
   
