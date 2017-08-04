@@ -117,9 +117,11 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm, startDat, endDat) {
       
     }
     
-    adjResidAddQs <- data.frame(dateTime = seq(from = as.POSIXct(startDat, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-                                               to = as.POSIXct(endDat, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-                                               by = "15 mins"),
+    adjResidDates <- seq(from = as.POSIXct(startDat, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+                         to = as.POSIXct(endDat, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+                         by = "15 mins")
+    
+    adjResidAddQs <- data.frame(dateTime = adjResidDates,
                                 adjResid = unlist(adjResidList))
     
     smPeriod <- dplyr::left_join(x = smPeriod, y = adjResidAddQs, by = "dateTime")
