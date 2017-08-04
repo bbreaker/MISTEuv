@@ -1070,7 +1070,7 @@ server <- function(input, output) ({
                             fitLower = signif(datPred$fitLower, 3), 
                             standardError = signif(datPred$standardError, 3))
       
-      datP <- dplyr::bind_cols(x = regDat, y = datPred)
+      datP <<- dplyr::bind_cols(x = regDat, y = datPred)
       
       if (input$roundOut != 0) {
         
