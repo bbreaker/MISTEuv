@@ -2,15 +2,23 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
   
   smPeriod <- subset(df, dateTime >= startSm & dateTime <= endSm)
   
-  smPeriod$Estimated <- as.numeric(smPeriod$Estimated)
+  smPeriod <- dplyr::left_join(smPeriod, ObsDf, by = "dateTime")
   
-  smPeriod <- dplyr::left_join(x = smPeriod, y = ObsDf, by = "dateTime")
+  leftResid <- dplyr::filter(smPeriod, dateTime < input$smthDateSt)
   
-  allResids <- smPeriod$Flow.y - smPeriod$Estimated
+  leftResid <- leftResid %>%
+    dplyr::mutate(leftResidCol = leftResid$Flow.y - leftResid$Estimated) %>%
+    dplyr::summarize(leftResidCol = mean(leftResidCol))
   
-  leftResid <- (allResids[1] + allResids[2]) / 2
+  leftResid <- leftResid$leftResidCol
   
-  rightResid <- ((allResids[(length(allResids))]) + (allResids[(length(allResids) - 1)])) / 2
+  rghtResid <- dplyr::filter(smPeriod, dateTime > input$smthDateEn) 
+  
+  rgthResid <- rghtResid %>%
+    mutate(rghtResidCol = rghtResid$Flow.y - rghtResid$Estimated) %>%
+    summarize(rghtResidCol = mean(rghtResidCol))
+  
+  rghtResid <- rghtResid$rghtResidCol
   
   if(nrow(ObsDf) == 1) {
     
@@ -18,9 +26,9 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
     
     smPeriodRght <- dplyr::filter(smPeriod, dateTime > ObsDf$dateTime)
     
-    diffDatesLeft <- as.numeric(ObsDf$dateTime) - as.numeric(startSm)
+    diffDatesLeft <- as.numeric(ObsDf$dateTime) - as.numeric(input$smthDateSt)
     
-    diffDatesRght <- as.numeric(endSm) - as.numeric(ObsDf$dateTime)
+    diffDatesRght <- as.numeric(input$smthDateEn) - as.numeric(ObsDf$dateTime)
     
     midResid <- na.omit(smPeriod$Flow.obs - smPeriod$Estimated)
     
@@ -30,11 +38,11 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
     
     interceptLeft <- leftResid
     
-    interceptRght <- midResid
+    interceptMid <- midResid
     
-    adjResidLeft <- interceptLeft + slopeResidLeft*(as.numeric(smPeriodLeft$dateTime) - as.numeric(startSm))
+    adjResidLeft <- interceptLeft + slopeResidLeft*(as.numeric(smPeriodLeft$dateTime) - as.numeric(input$smthDateSt))
     
-    adjResidRght <- interceptRght + slopeResidRght*(as.numeric(smPeriodRght$dateTime) - as.numeric(ObsDf$dateTime))
+    adjResidRght <- interceptMid + slopeResidRght*(as.numeric(smPeriodRght$dateTime) - as.numeric(ObsDf$dateTime))
     
     adjResidVec <- c(adjResidLeft, adjResidRght)
     
@@ -51,23 +59,21 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
     
     adjResidList <- list()
     
-    ObsDfAdd <- dplyr::left_join(x = ObsDf, y = smPeriod, by = "dateTime")
-    
-    ObsDfAdd <- ObsDfAdd[,c(1:12)]
-    
     for(i in seq(1, (nrow(ObsDf) + 1), 1)) {
       
       if(i == 1) {
         
-        smPeriodLeft <- dplyr::filter(smPeriod, dateTime <= ObsDf[i, 1])
+        smPeriodLeft <- dplyr::filter(smPeriod, dateTime <= ObsDf[i, 1] & dateTime >= input$smthDateSt)
         
-        diffDatesLeft <- as.numeric(ObsDf[i, 1]) - as.numeric(startSm)
+        diffDatesLeft <- as.numeric(ObsDf[i, 1]) - as.numeric(input$smthDateSt)
         
-        midResid <- ObsDfAdd[i, 2] - ObsDfAdd[i, 12]
+        midResid <- smPeriodLeft[nrow(smPeriodLeft),]
+        
+        midResid <- midResid$Flow.obs - midResid$Estimated
         
         slopeResidLeft <- (midResid - leftResid) / diffDatesLeft
         
-        adjResidList[[i]] <- leftResid + slopeResidLeft*(as.numeric(smPeriodLeft$dateTime) - as.numeric(startSm))
+        adjResidList[[i]] <- leftResid + slopeResidLeft*(as.numeric(smPeriodLeft$dateTime) - as.numeric(input$smthDateSt))
         
       }
       
@@ -75,11 +81,11 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
         
         smPeriodNew <- dplyr::filter(smPeriod, dateTime >= ObsDf[i - 1, 1] & dateTime <= ObsDf[i, 1])
         
-        diffDatesNew <- as.numeric(smPeriodNew[nrow(smPeriodNew),1]) - as.numeric(smPeriod[1,1])
+        diffDatesNew <- as.numeric(smPeriodNew[nrow(smPeriodNew),1]) - as.numeric(smPeriodNew[1,1])
         
-        midResidLeft <- ObsDfAdd[i - 1, 2] - ObsDfAdd[i - 1, 12]
+        midResidLeft <- smPeriodNew[1, 15] - smPeriodNew[1, 11]
         
-        midResidRght <- ObsDfAdd[i, 2] - ObsDfAdd[i, 12]
+        midResidRght <- smPeriodNew[nrow(smPeriodNew), 15] - smPeriodNew[nrow(smPeriodNew), 11]
         
         slopeResidNew <- (midResidRght - midResidLeft) / diffDatesNew
         
@@ -93,11 +99,11 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
       
       else if(i == (nrow(ObsDf) + 1)) {
         
-        smPeriodNew <- dplyr::filter(smPeriod, dateTime >= ObsDf[i - 1, 1])
+        smPeriodNew <- dplyr::filter(smPeriod, dateTime >= ObsDf[i - 1, 1] & dateTime <= input$smthDateEn)
         
-        diffDatesNew <- as.numeric(endSm) - as.numeric(ObsDf[i - 1, 1])
+        diffDatesNew <- as.numeric(input$smthDateEn) - as.numeric(ObsDf[i - 1, 1])
         
-        midResidLeft <- ObsDfAdd[i - 1, 2] - ObsDfAdd[i - 1, 12]
+        midResidLeft <- smPeriodNew[1, 15] - smPeriodNew[1, 11]
         
         slopeResidNew <- (rightResid - midResidLeft) / diffDatesNew
         
@@ -105,15 +111,16 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm) {
         
         adjResidNew <- adjResidNew[-1]
         
-        adjResidList[[i + 1]] <- adjResidNew
+        adjResidList[[i]] <- adjResidNew
         
       }
       
     }
     
-    adjResidAddQs <- unlist(adjResidList)
+    adjResidAddQs <- data.frame(dateTime = seq(from = input$smthDateSt, to = input$smthDateEn, by = "15 mins"),
+                                adjResid = unlist(adjResidList))
     
-    smPeriod$adjResid <- adjResidAddQs
+    smPeriod <- dplyr::left_join(x = smPeriod, y = adjResidAddQs, by = "dateTime")
     
     smPeriod$Smoothed <- smPeriod$Estimated + smPeriod$adjResid
     
