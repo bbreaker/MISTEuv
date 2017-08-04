@@ -23,6 +23,5 @@ Imports:
   DT,
   shiny,
   shinydashboard,
-  mgcv,
-  dataRetrieval,
-  rmarkdown
+  mgcv
+VignetteBuilder: knitr
