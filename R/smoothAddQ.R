@@ -14,7 +14,7 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm, startDat, endDat) {
   
   rghtResid <- dplyr::filter(smPeriod, dateTime > endDat) 
   
-  rgthResid <- rghtResid %>%
+  rghtResid <- rghtResid %>%
     mutate(rghtResidCol = rghtResid$Flow.y - rghtResid$Estimated) %>%
     summarize(rghtResidCol = mean(rghtResidCol))
   
