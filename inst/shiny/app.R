@@ -1094,16 +1094,16 @@ server <- function(input, output) ({
         
         addDTs <- unlist(strsplit(input$ObsQDate, ", "))
         
-        ObsDf <- data.frame(dateTime = as.POSIXct(addDTs, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"),
+        ObsDf <<- data.frame(dateTime = as.POSIXct(addDTs, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"),
                             Flow.obs = addQs)
         
-        startDat <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
+        startDat <<- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
         
-        endDat <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
+        endDat <<- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
         
-        startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") - as.difftime(30, units = "mins")
+        startSm <<- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S") - as.difftime(30, units = "mins")
         
-        endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") + as.difftime(30, units = "mins")
+        endSm <<- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S") + as.difftime(30, units = "mins")
         
         datP <- smoothAddQ(df = datP, ObsDf = ObsDf, startSm, endSm, startDat, endDat)
         
