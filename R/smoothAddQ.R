@@ -34,7 +34,7 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm, startDat, endDat) {
     
     slopeResidLeft <- (midResid - leftResid) / diffDatesLeft
     
-    slopeResidRght <- (rightResid - midResid) / diffDatesRght
+    slopeResidRght <- (rghtResid - midResid) / diffDatesRght
     
     interceptLeft <- leftResid
     
@@ -105,7 +105,7 @@ smoothAddQ <- function(df, ObsDf, startSm, endSm, startDat, endDat) {
         
         midResidLeft <- smPeriodNew[1, 15] - smPeriodNew[1, 11]
         
-        slopeResidNew <- (rightResid - midResidLeft) / diffDatesNew
+        slopeResidNew <- (rghtResid - midResidLeft) / diffDatesNew
         
         adjResidNew <- midResidLeft + slopeResidNew*(as.numeric(smPeriodNew$dateTime) - as.numeric(ObsDf[i - 1, 1]))
         
