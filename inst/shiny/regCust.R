@@ -159,7 +159,7 @@ output$regCust <- renderPrint({
       
     }
     
-    testg <- gof(sim = regObj$fitted.values, obs = regObjRise$y)
+    testg <- gof(sim = regObj$fitted.values, obs = regObj$y)
     
     newSummary <- c(input$yID, 
                     input$xID, 
