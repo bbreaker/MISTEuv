@@ -7,9 +7,8 @@ output$regCust <- renderPrint({
   datP <- allMISTEdat(estDat, regDat)
   
   newNames <- c("Estimates for", "Index 1", "Lag for Index 1", "Index 2", "Lag for Index 2", "Summary", "Method", "Adj R-squared", 
-                "Adj R-squared rise", "Adj R-squared fall", "Percent bias", "Percent bias rise", "Percent bias fall", 
-                "Transformation bias", "Transformation bias rise", "Transformation bias fall", "Regression range", 
-                "Estimation range", "Smoothing applied", "Smoothing date range", "Peak input", "Peak input date")
+                "Percent bias", "Transformation bias", "Regression range", "Estimation range", "Smoothing applied", "Smoothing date range", 
+                "Peak input", "Peak input date", "Obseverved Discharge", "Obseverved Discharge Date")
   
   if (input$eventEst == FALSE) {
     
