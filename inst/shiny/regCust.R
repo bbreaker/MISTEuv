@@ -31,20 +31,16 @@ output$regCust <- renderPrint({
                         "steady", 
                         "linear regression", 
                         signif(summary(regObj)$adj.r.squared, 3), 
-                        "", 
-                        "", 
                         testg[6,1], 
-                        "", 
-                        "", 
                         round((sum(10^(resid(regObj))))/nobs(regObj),3), 
-                        "",
-                        "",
                         paste0(input$regDateSt, " to ", input$regDateEn),
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
                         dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate),
+                        "",
+                        "")
         
       }
       
@@ -62,20 +58,16 @@ output$regCust <- renderPrint({
                         "steady", 
                         "gam regression", 
                         signif(summary(regObj)$r.sq, 3),
-                        "", 
-                        "", 
                         testg[6,1], 
-                        "", 
-                        "", 
                         round((sum(10^(resid(regObj))))/nobs(regObj),3), 
-                        "",
-                        "",
                         paste0(input$regDateSt, " to ", input$regDateEn),
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
                         dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate),
+                        "",
+                        "")
         
       }
       
@@ -99,20 +91,16 @@ output$regCust <- renderPrint({
                         "steady", 
                         "linear regression", 
                         signif(summary(regObj)$adj.r.squared, 3),
-                        "", 
-                        "", 
                         testg[6,1], 
-                        "", 
-                        "", 
                         round((sum(10^(resid(regObj))))/nobs(regObj),3), 
-                        "",
-                        "",
                         paste0(input$regDateSt, " to ", input$regDateEn),
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
                         dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate),
+                        "",
+                        "")
         
       }
       
@@ -131,20 +119,16 @@ output$regCust <- renderPrint({
                         "steady", 
                         "gam regression", 
                         signif(summary(regObj)$r.sq, 3),
-                        "", 
-                        "", 
                         testg[6,1], 
-                        "", 
-                        "", 
                         round((sum(10^(resid(regObj))))/nobs(regObj),3), 
-                        "",
-                        "",
                         paste0(input$regDateSt, " to ", input$regDateEn),
                         paste0(input$estDateSt, " to ", input$estDateEn),
                         dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                         dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
                         dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
-                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
+                        dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate),
+                        "",
+                        "")
         
       }
       
@@ -154,77 +138,29 @@ output$regCust <- renderPrint({
   
   else if (input$eventEst == TRUE) {
     
-    maxQ <- max(regDat$Flow.y, na.rm = TRUE)
+    regDat <- mutate(regDat, event = if_else(Flow.x > lag(Flow.x, 1), "rise", "fall"))
     
-    maxQdt <- regDat[regDat$Flow.y == maxQ,]
+    regDat$event <- if_else(is.na(regDat$event), "rise", regDat$event)
     
-    if(nrow(maxQdt) > 1) {
+    estDat <- mutate(estDat, event = if_else(Flow.x > lag(Flow.x, 1), "rise", "fall"))
+    
+    estDat$event <- if_else(is.na(estDat$event), "rise", estDat$event)
+    
+    if(input$adjKnots == FALSE) {
       
-      maxQdt <- maxQdt[!is.na(maxQdt$Flow_cd.y),]
-      
-      maxQdt <- maxQdt[round(nrow(maxQdt)/2, 0),1]
+      regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = 10), 
+                    data = regDat, select = TRUE)
       
     }
     
-    else if(nrow(maxQdt) == 1) {
+    else if(input$adjKnots == TRUE) {
       
-      maxQdt <- maxQdt[1,1]
-      
-    }
-    
-    regDatRise <- regDat[regDat$dateTime <= maxQdt,]
-    
-    regDatFall <- regDat[regDat$dateTime >= maxQdt,]
-    
-    if(input$givePeakQ == FALSE) {
-      
-      maxQP <- max(estDat$Flow.y, na.rm = TRUE)
-      
-      maxQPdt <- estDat[estDat$Flow.y == maxQP,]
-      
-      if(nrow(maxQPdt) > 1) {
-        
-        maxQPdt <- maxQPdt[!is.na(maxQPdt$Flow.y),]
-        
-        maxQPdt <- maxQPdt[round(nrow(maxQPdt)/2, 0),1]
-        
-      }
-      
-      else if(nrow(maxQPdt) == 1) {
-        
-        maxQPdt <- maxQPdt[1,1]
-        
-      }
-      
-      estDatRise <- estDat[estDat$dateTime <= maxQPdt,]
-      
-      estDatFall <- estDat[estDat$dateTime >= maxQPdt,]
+      regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = input$knots), 
+                    data = regDat, select = TRUE)
       
     }
     
-    else if(input$givePeakQ == TRUE) {
-      
-      maxQP <- as.numeric(input$peakToUse)
-      
-      maxQPdt <- as.POSIXct(input$peakDate, format = "%Y-%m-%d %H:%M:%S")
-      
-      estDatRise <- estDat[estDat$dateTime <= maxQPdt,]
-      
-      estDatFall <- estDat[estDat$dateTime >= maxQPdt,]
-      
-      estDatRise[nrow(estDatRise),8] <- maxQP
-      
-      estDatFall[1,8] <- maxQP
-      
-    }
-    
-    regObjRise <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts"), data = regDatRise, select = TRUE)
-    
-    regObjFall <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts"), data = regDatFall, select = TRUE)
-    
-    testgRise <- gof(sim = regObjRise$fitted.values, obs = regObjRise$y)
-    
-    testgFall <- gof(sim = regObjFall$fitted.values, obs = regObjFall$y)
+    testg <- gof(sim = regObj$fitted.values, obs = regObjRise$y)
     
     newSummary <- c(input$yID, 
                     input$xID, 
@@ -233,21 +169,17 @@ output$regCust <- renderPrint({
                     "",
                     "event", 
                     "gam regression", 
-                    "", 
-                    signif(summary(regObjRise)$r.sq, 3), 
-                    signif(summary(regObjFall)$r.sq, 3),  
-                    "", 
-                    testgRise[6,1], 
-                    testgFall[6,1], 
-                    "", 
-                    round((sum(10^(resid(regObjRise))))/nobs(regObjRise),3),
-                    round((sum(10^(resid(regObjFall))))/nobs(regObjFall),3),
+                    signif(summary(regObj)$r.sq, 3),  
+                    testg[6,1], 
+                    round((sum(10^(resid(regObj))))/nobs(regObj),3),
                     paste0(input$regDateSt, " to ", input$regDateEn),
                     paste0(input$estDateSt, " to ", input$estDateEn),
                     dplyr::if_else(input$smooth == FALSE, "No", "Yes"),
                     dplyr::if_else(input$smooth == FALSE, "", paste0(input$smthDateSt, " to ", input$smthDateEn)),
                     dplyr::if_else(input$givePeakQ == FALSE, "", input$peakToUse),
-                    dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate))
+                    dplyr::if_else(input$givePeakQ == FALSE, "", input$peakDate),
+                    dplyr::if_else(input$giveObsQ == FALSE, "", input$ObsQ),
+                    dplyr::if_else(input$giveObsQ == FALSE, "", input$ObsQDate))
     
   }
   
