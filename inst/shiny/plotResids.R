@@ -123,7 +123,6 @@ output$plotResids <- renderPlot({
       stat_smooth(method = "loess", span = 0.9, color = "red", linetype = "dashed", se = FALSE) +
       scale_y_continuous(limits = c(-1*max(abs(regDF$.resid)), 1*max(abs(regDF$.resid)))) +
       labs(x = "Fitted values", y = "Residuals") +
-      facet_wrap(~comment) +
       theme_bw()
 
     p
