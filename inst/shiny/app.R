@@ -60,12 +60,6 @@ sidebar <- dashboardSidebar(width = 300,
                                                    step = 15, min = -1440, max = 1440, value = 0)
                               ),
                               menuItem("Regression Tuning", tabName = "tabset3",
-                                       textInput("smthDateSt",
-                                                 "Begin date/time for smoothing (UTC)",
-                                                 value = "9999-99-99 99:99:99"),
-                                       textInput("smthDateEn", 
-                                                 "End date/time for smoothing (UTC)", 
-                                                 value = "9999-99-99 99:99:99"),
                                        checkboxInput("smooth", 
                                                      "Apply smoothing to estimated data", 
                                                      value = FALSE),
@@ -456,9 +450,9 @@ server <- function(input, output) ({
   
   applySmooth <- function(df) {
     
-    startSm <- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") - as.difftime(30, units = "mins")
+    startSm <- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") - as.difftime(30, units = "mins")
     
-    endSm <- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") + as.difftime(30, units = "mins")
+    endSm <- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") + as.difftime(30, units = "mins")
     
     smPeriod <- dplyr::filter(df, dateTime >= startSm & dateTime <= endSm)
     
@@ -1097,13 +1091,13 @@ server <- function(input, output) ({
         ObsDf <<- data.frame(dateTime = as.POSIXct(addDTs, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"),
                             Flow.obs = addQs)
         
-        startDat <<- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
+        startDat <<- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
         
-        endDat <<- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
+        endDat <<- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
         
-        startSm <<- as.POSIXct(input$smthDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") - as.difftime(30, units = "mins")
+        startSm <<- as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") - as.difftime(30, units = "mins")
         
-        endSm <<- as.POSIXct(input$smthDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") + as.difftime(30, units = "mins")
+        endSm <<- as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT") + as.difftime(30, units = "mins")
         
         datP <- smoothAddQ(df = datP, ObsDf = ObsDf, startSm, endSm, startDat, endDat)
         
