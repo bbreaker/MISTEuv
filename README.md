@@ -30,7 +30,7 @@ devtools::install_github("bbreaker-USGS/MISTEuv")
 MISTEuv::MISTEuvgui()
 ```
 
-The following code may be used prior to the previous code if an error occurs related to the `devtools::install_github()` function results in an error.
+The following code may be used prior to the previous code if an error occurs related to the `devtools::install_github()` function.
 
 ```r
 library(httr)
