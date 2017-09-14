@@ -15,7 +15,9 @@ output$downloadData <- downloadHandler(
       datP <- datP %>%
         dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
                       dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
-        dplyr::select(dateTime, Flow = Estimated)
+        dplyr::select(dateTime, Estimated)
+
+      names(datP)[2] <- "Flow"
 
     }
 
@@ -24,7 +26,9 @@ output$downloadData <- downloadHandler(
       datP <- datP %>%
         dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
                       dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
-        dplyr::select(dateTime, Flow = Smoothed)
+        dplyr::select(dateTime, Smoothed)
+
+      names(datP)[2] <- "Flow"
 
     }
 
