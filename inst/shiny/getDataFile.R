@@ -13,7 +13,7 @@ output$downloadData <- downloadHandler(
     if (input$smooth == FALSE) {
 
       datP <- datP %>%
-        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
+        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") &
                       dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
         dplyr::select(dateTime, Estimated)
 
@@ -24,7 +24,7 @@ output$downloadData <- downloadHandler(
     else if (input$smooth == TRUE) {
 
       datP <- datP %>%
-        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
+        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") &
                       dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
         dplyr::select(dateTime, Smoothed)
 
