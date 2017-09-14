@@ -10,18 +10,20 @@ output$downloadData <- downloadHandler(
 
     datP <- allMISTEdat(estDat, regDat)
 
-    if(input$smooth == FALSE) {
+    if (input$smooth == FALSE) {
 
       datP <- datP %>%
-        #dplyr::filter(is.na(Flow.y)) %>%
+        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
+                      dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
         dplyr::select(dateTime, Flow = Estimated)
 
     }
 
-    else if(input$smooth == TRUE) {
+    else if (input$smooth == TRUE) {
 
       datP <- datP %>%
-        #dplyr::filter(is.na(Flow.y)) %>%
+        dplyr::filter(dateTime >= as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") |
+                      dateTime <= as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
         dplyr::select(dateTime, Flow = Smoothed)
 
     }
