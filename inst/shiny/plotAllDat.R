@@ -23,9 +23,9 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                             paste0("x-", input$xID) = "green", 
-                             "Estimated" = "red")) +
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue",
+                                        (paste0("x-", input$xID)) = "green",
+                                        "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank())
         
       }	
@@ -44,8 +44,8 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green", 
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green", 
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
@@ -71,9 +71,9 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower)], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
-                                        paste0("x2-", input$xID2) = "purple",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
+                                        (paste0("x2-", input$xID2)) = "purple",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank())
         
@@ -94,9 +94,9 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
-                                        paste0("x2-", input$xID2) = "purple",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
+                                        (paste0("x2-", input$xID2)) = "purple",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
@@ -134,8 +134,8 @@ output$plotAllDat <- renderPlot({
           geom_point(data = ObsDf, aes(x = dateTime, y = Flow.obs), alpha = 1, fill = "red", pch = 21, size = 3) +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
                                         "Smoothed" = "orange",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank())
@@ -158,8 +158,8 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
                                         "Smoothed" = "orange",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
@@ -181,8 +181,8 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank())
         
@@ -202,8 +202,8 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c(paste0("y-", input$yID) = "blue", 
-                                        paste0("x-", input$xID) = "green",
+          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
+                                        (paste0("x-", input$xID)) = "green",
                                         "Estimated" = "red")) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
