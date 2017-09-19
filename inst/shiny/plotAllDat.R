@@ -33,8 +33,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual("", breaks = c(yvar, xvay, "Estimated"), 
-                             values = c("blue", "green", "red")) +
+          scale_color_manual("", values = c("blue", "green", "red")) +
           theme_bw() + theme(legend.title = element_blank())
         
       }	
