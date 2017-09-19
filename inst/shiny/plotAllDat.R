@@ -10,6 +10,10 @@ output$plotAllDat <- renderPlot({
     
     if (input$use2 == FALSE) {
       
+      cols <- c((paste0("y-", input$yID)) = "blue",
+                (paste0("x-", input$xID)) = "green",
+                "Estimated" = "red")
+      
       if (input$log10 == FALSE) {
         
         p <- ggplot() +
@@ -23,9 +27,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue",
-                                        (paste0("x-", input$xID)) = "green",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }	
@@ -44,9 +46,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green", 
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
@@ -56,6 +56,11 @@ output$plotAllDat <- renderPlot({
     }
     
     else if (input$use2 == TRUE) {
+      
+      cols <- c((paste0("y-", input$yID)) = "blue", 
+                (paste0("x-", input$xID)) = "green",
+                (paste0("x2-", input$xID2)) = "purple",
+                "Estimated" = "red")
       
       if (input$log10 == FALSE) {
         
@@ -71,10 +76,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower)], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        (paste0("x2-", input$xID2)) = "purple",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -94,10 +96,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        (paste0("x2-", input$xID2)) = "purple",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
@@ -119,6 +118,11 @@ output$plotAllDat <- renderPlot({
       ObsDf <<- data.frame(dateTime = as.POSIXct(addDTs, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"),
                            Flow.obs = addQs)
       
+      cols <- c((paste0("y-", input$yID)) = "blue", 
+                (paste0("x-", input$xID)) = "green",
+                "Smoothed" = "orange",
+                "Estimated" = "red")
+      
       if (input$log10 == FALSE) {
         
         p <- ggplot() +
@@ -134,10 +138,7 @@ output$plotAllDat <- renderPlot({
           geom_point(data = ObsDf, aes(x = dateTime, y = Flow.obs), alpha = 1, fill = "red", pch = 21, size = 3) +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        "Smoothed" = "orange",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -158,16 +159,17 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        "Smoothed" = "orange",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
       
     } else {
       
+      cols <- c((paste0("y-", input$yID)) = "blue", 
+                (paste0("x-", input$xID)) = "green",
+                "Estimated" = "red")
+      
       if (input$log10 == FALSE) {
         
         p <- ggplot() +
@@ -181,9 +183,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -202,9 +202,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                        (paste0("x-", input$xID)) = "green",
-                                        "Estimated" = "red")) +
+          scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }

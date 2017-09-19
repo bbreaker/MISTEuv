@@ -4,6 +4,9 @@ output$plotComp1 <- renderPlot({
   
   bestOffsetVal <- getBestOffset(regDat) 
   
+  cols = c((paste0("y-", input$yID)) = "blue", 
+           (paste0("x-", input$xID)) = "green")
+  
   if(input$lag1 == 0) {
     
     if (input$log10 == FALSE) {
@@ -16,8 +19,7 @@ output$plotComp1 <- renderPlot({
         geom_line(data = regDat[!is.na(regDat$Flow.x),], aes(x = dateTime, y = Flow.x, color = paste0("x-", input$xID)), size = 1, linetype = "dotdash") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second",
              title = paste0("calculated best time offset = ", bestOffsetVal, " minutes")) +
-        scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                      (paste0("x-", input$xID)) = "green")) +
+        scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank())
       
     }
@@ -34,8 +36,7 @@ output$plotComp1 <- renderPlot({
         annotation_logticks(sides = "rl") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second", 
              title = paste0("calculated best time offset = ", bestOffsetVal, " minutes")) +
-        scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                      (paste0("x-", input$xID)) = "green")) +
+        scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
       
     }
@@ -55,8 +56,7 @@ output$plotComp1 <- renderPlot({
         geom_line(data = regDat[!is.na(regDat$Flow.y),], aes(x = dateTime, y = Flow.y, color = paste0("y-", input$yID)), size = 1) +
         geom_line(data = regDat[!is.na(regDat$Flow.x),], aes(x = dateTime, y = Flow.x, color = paste0("x-", input$xID)), size = 1, linetype = "dotdash") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-        scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                      (paste0("x-", input$xID)) = "green")) +
+        scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank())
       
     }
@@ -72,8 +72,7 @@ output$plotComp1 <- renderPlot({
         scale_y_log10() +
         annotation_logticks(sides = "rl") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-        scale_color_manual(values = c((paste0("y-", input$yID)) = "blue", 
-                                      (paste0("x-", input$xID)) = "green")) +
+        scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
       
     }
