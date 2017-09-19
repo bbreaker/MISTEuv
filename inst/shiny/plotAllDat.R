@@ -23,7 +23,7 @@ output$plotAllDat <- renderPlot({
       if (input$log10 == FALSE) {
         
         p <- ggplot() +
-          geom_line(data = datP[!is.na(datP$Flow.y),], aes(x = dateTime, y = Flow.y, color = yvar), size = 1) +
+          geom_line(data = datP[!is.na(datP$Flow.y),], aes(x = dateTime, y = Flow.y, color = yvar), color = "blue", size = 1) +
           geom_rect(aes(xmin = as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
                         xmax = as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
                         ymin = -Inf, ymax = Inf), alpha = 0.4, color = "grey80") +
