@@ -814,7 +814,7 @@ server <- function(input, output) ({
         
         if (input$Method == 1) {
           
-          regObj <- lm(log10(Flow.y) ~ log10(Flow.x), data = regDat)
+          regObj <<- lm(log10(Flow.y) ~ log10(Flow.x), data = regDat)
           
           predSet <- data.frame(dateTime = estDat$dateTime, Flow.x = estDat$Flow.x)
           
@@ -859,13 +859,13 @@ server <- function(input, output) ({
           
           if(input$adjKnots == FALSE) {
             
-            regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs"), data = regDat, select = TRUE)
+            regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs"), data = regDat, select = TRUE)
             
           }
           
           else if (input$adjKnots == TRUE) {
             
-            regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cr", k = input$knots), data = regDat)
+            regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cr", k = input$knots), data = regDat)
             
           }
           
@@ -916,7 +916,7 @@ server <- function(input, output) ({
         
         if (input$Method == 1) {
           
-          regObj <- lm(log10(Flow.y) ~ log10(Flow.x) + log10(Flow.x2), data = regDat)
+          regObj <<- lm(log10(Flow.y) ~ log10(Flow.x) + log10(Flow.x2), data = regDat)
           
           predSet <- data.frame(dateTime = estDat$dateTime, Flow.x = estDat$Flow.x, Flow.x2 = estDat$Flow.x2)
           
@@ -961,14 +961,14 @@ server <- function(input, output) ({
           
           if (input$adjKnots == FALSE) {
             
-            regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs") + 
+            regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs") + 
                             s(log10(Flow.x2), bs = "cs"), data = regDat)
             
           }
           
           else if (input$adjKnots == TRUE) {
             
-            regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cr", k = input$knots) + 
+            regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cr", k = input$knots) + 
                             s(log10(Flow.x2), bs = "cr", k = input$knots), data = regDat)
             
           }
@@ -1030,14 +1030,14 @@ server <- function(input, output) ({
       
       if(input$adjKnots == FALSE) {
         
-        regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = 10), 
+        regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = 10), 
                       data = regDat, select = TRUE)
         
       }
       
       else if(input$adjKnots == TRUE) {
         
-        regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = input$knots), 
+        regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = input$knots), 
                       data = regDat, select = TRUE)
         
       }
