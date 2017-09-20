@@ -1205,7 +1205,7 @@ server <- function(input, output, session) ({
   
   session$onSessionEnded(function() {
     
-    save.image(paste0(sys.time(), "_", input$yID))
+    save.image(file = paste0(sys.time(), "_", input$yID, ".RData"))
     
   })
   
