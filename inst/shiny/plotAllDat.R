@@ -23,7 +23,7 @@ output$plotAllDat <- renderPlot({
       if (input$log10 == FALSE) {
         
         p <- ggplot() +
-          geom_line(data = datP[!is.na(datP$Flow.y),], aes(x = dateTime, y = Flow.y, color = yvar), color = "blue", size = 1) +
+          geom_line(data = datP[!is.na(datP$Flow.y),], aes(x = dateTime, y = Flow.y, color = yvar), size = 1) +
           geom_rect(aes(xmin = as.POSIXct(input$estDateSt, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
                         xmax = as.POSIXct(input$estDateEn, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
                         ymin = -Inf, ymax = Inf), alpha = 0.4, color = "grey80") +
@@ -33,7 +33,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual("", values = c("blue", "green", "red")) +
+          #scale_color_manual("", values = c("blue", "green", "red")) +
           theme_bw() + theme(legend.title = element_blank())
         
       }	
@@ -52,7 +52,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
@@ -82,7 +82,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower)], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -102,7 +102,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
@@ -144,7 +144,7 @@ output$plotAllDat <- renderPlot({
           geom_point(data = ObsDf, aes(x = dateTime, y = Flow.obs), alpha = 1, fill = "red", pch = 21, size = 3) +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -165,7 +165,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }
@@ -189,7 +189,7 @@ output$plotAllDat <- renderPlot({
           geom_line(data = datP[!is.na(datP$fitLower),], aes(x = dateTime, y = fitLower), color = "black", size = 1, linetype = "dashed") +
           scale_y_continuous(labels = comma) +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank())
         
       }
@@ -208,7 +208,7 @@ output$plotAllDat <- renderPlot({
           scale_y_log10(labels = comma) +
           annotation_logticks(sides = "rl") +
           labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-          scale_color_manual(values = cols) +
+          #scale_color_manual(values = cols) +
           theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
         
       }

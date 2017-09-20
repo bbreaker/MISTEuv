@@ -23,7 +23,7 @@ output$plotComp1 <- renderPlot({
         geom_line(data = regDat[!is.na(regDat$Flow.x),], aes(x = dateTime, y = Flow.x, color = xvar), size = 1, linetype = "dotdash") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second",
              title = paste0("calculated best time offset = ", bestOffsetVal, " minutes")) +
-        scale_color_manual(values = cols) +
+        #scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank())
       
     }
@@ -40,7 +40,7 @@ output$plotComp1 <- renderPlot({
         annotation_logticks(sides = "rl") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second", 
              title = paste0("calculated best time offset = ", bestOffsetVal, " minutes")) +
-        scale_color_manual(values = cols) +
+        #scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
       
     }
@@ -60,7 +60,7 @@ output$plotComp1 <- renderPlot({
                       ymin = -Inf, ymax = Inf), alpha = 0.4, color = "grey50") +
         geom_line(data = regDat[!is.na(regDat$Flow.x),], aes(x = dateTime, y = Flow.x, color = xvar), size = 1, linetype = "dotdash") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-        scale_color_manual(values = cols) +
+        #scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank())
       
     }
@@ -76,7 +76,7 @@ output$plotComp1 <- renderPlot({
         scale_y_log10() +
         annotation_logticks(sides = "rl") +
         labs(x = "Date (UTC)", y = "Discharge, in cubic feet per second") +
-        scale_color_manual(values = cols) +
+        #scale_color_manual(values = cols) +
         theme_bw() + theme(legend.title = element_blank(), panel.grid.minor = element_blank())
       
     }
