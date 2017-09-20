@@ -141,7 +141,7 @@ body <- dashboardBody(
 
 ui <- dashboardPage(skin = "black", header, sidebar, body)
 
-server <- function(input, output) ({
+server <- function(input, output, session) ({
   
   options(shiny.sanitize.errors = TRUE)
   
