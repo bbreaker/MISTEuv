@@ -6,9 +6,9 @@ output$regCust <- renderPrint({
 
   datP <- allMISTEdat(estDat, regDat)
 
-  newNames <- c("Estimates for", "Index 1", "Lag for Index 1", "Index 2", "Lag for Index 2", "Summary", "Method", "Adj R-squared",
+  newNames <- c("Estimates for", "Index 1", "Lag for Index 1", "Index 2", "Lag for Index 2", "Summary", "Method", "GAM Knots", "Adj R-squared",
                 "Percent bias", "Transformation bias", "Regression range", "Estimation range", "Smoothing applied", "Smoothing date range",
-                "Peak input", "Peak input date", "Obseverved Discharge", "Obseverved Discharge Date")
+                "Peak input", "Peak input date", "Observed Discharge", "Observed Discharge Date")
 
   if (input$eventEst == FALSE) {
 
@@ -29,6 +29,7 @@ output$regCust <- renderPrint({
                         "",
                         "steady",
                         "linear regression",
+                        "",
                         signif(summary(regObj)$adj.r.squared, 3),
                         testg[6,1],
                         round((sum(10^(resid(regObj))))/nobs(regObj),3),
@@ -55,7 +56,8 @@ output$regCust <- renderPrint({
                         "",
                         "",
                         "steady",
-                        "gam regression",
+                        "GAM regression",
+                        dplyr::if_else(input$adjKnots == FALSE, "Default", input$knots),
                         signif(summary(regObj)$r.sq, 3),
                         testg[6,1],
                         round((sum(10^(resid(regObj))))/nobs(regObj),3),
@@ -89,6 +91,7 @@ output$regCust <- renderPrint({
                         input$lag2,
                         "steady",
                         "linear regression",
+                        "",
                         signif(summary(regObj)$adj.r.squared, 3),
                         testg[6,1],
                         round((sum(10^(resid(regObj))))/nobs(regObj),3),
@@ -116,7 +119,8 @@ output$regCust <- renderPrint({
                         input$xID2,
                         input$lag2,
                         "steady",
-                        "gam regression",
+                        "GAM regression",
+                        dplyr::if_else(input$adjKnots == FALSE, "Default", input$knots),
                         signif(summary(regObj)$r.sq, 3),
                         testg[6,1],
                         round((sum(10^(resid(regObj))))/nobs(regObj),3),
@@ -168,6 +172,7 @@ output$regCust <- renderPrint({
                     "",
                     "event",
                     "gam regression",
+                    dplyr::if_else(input$adjKnots == FALSE, "Default", input$knots),
                     signif(summary(regObj)$r.sq, 3),
                     testg[6,1],
                     round((sum(10^(resid(regObj))))/nobs(regObj),3),
