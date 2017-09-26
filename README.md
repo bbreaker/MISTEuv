@@ -1,7 +1,7 @@
 MISTEuv (Beta)
 --------------
 
-MISTEuv was developed to estimate missing unit-value streamflow data for USGS streamflow-gaging stations. Estimates are generated using a generalized additive model (GAM) with one or two index streamflow-gaging stations.
+MISTEuv is used to estimate missing unit-value streamflow data for USGS streamflow-gaging stations. Estimates are generated using a generalized additive model (GAM) with one or two index streamflow-gaging stations.
 
 Software
 --------
@@ -13,7 +13,7 @@ rprofile_path = file.path(Sys.getenv("HOME"), ".Rprofile")
 write('\noptions(repos=c(getOption(\'repos\'),
     CRAN=\'https://cloud.r-project.org\',
     USGS=\'https://owi.usgs.gov/R\'))\n',
-      rprofile_path, 
+      rprofile_path,
       append =  TRUE)
 ```
 
