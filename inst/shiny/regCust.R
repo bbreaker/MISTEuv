@@ -172,7 +172,7 @@ output$regCust <- renderPrint({
                     "",
                     "event",
                     "gam regression",
-                    dplyr::if_else(input$adjKnots == FALSE, "Default", input$knots),
+                    dplyr::if_else(input$adjKnots == FALSE, "Default", as.character(input$knots)),
                     signif(summary(regObj)$r.sq, 3),
                     testg[6,1],
                     round((sum(10^(resid(regObj))))/nobs(regObj),3),
