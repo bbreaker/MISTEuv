@@ -30,7 +30,7 @@ output$plotResids <- renderPlot({
 
       else if (input$Method == 2) {
 
-        regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts"), data = regDat, select = TRUE)
+        regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs"), data = regDat, select = TRUE)
 
         regDF <- augment(regObj)
 
@@ -70,8 +70,17 @@ output$plotResids <- renderPlot({
 
       else if (input$Method == 2) {
 
-        regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "ts") +
-                        s(log10(Flow.x2), bs = "ts"), data = regDat, select = TRUE)
+      if(input$adjKnots == FALSE) {
+
+        regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cs"), data = regDat, select = TRUE)
+
+      }
+
+      else if (input$adjKnots == TRUE) {
+
+        regObj <<- gam(log10(Flow.y) ~ s(log10(Flow.x), bs = "cr", k = input$knots), data = regDat)
+
+      }
 
         regDF <- augment(regObj)
 
@@ -92,29 +101,29 @@ output$plotResids <- renderPlot({
   }
 
   else if (input$eventEst == TRUE) {
-    
+
     regDat <- mutate(regDat, event = if_else(Flow.x > lag(Flow.x, 1), "rise", "fall"))
-    
+
     regDat$event <- if_else(is.na(regDat$event), "rise", regDat$event)
-    
+
     estDat <- mutate(estDat, event = if_else(Flow.x > lag(Flow.x, 1), "rise", "fall"))
-    
+
     estDat$event <- if_else(is.na(estDat$event), "rise", estDat$event)
-    
+
     if(input$adjKnots == FALSE) {
-      
+
       regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = 10),
                     data = regDat, select = TRUE)
-      
+
     }
-    
-    else if(input$adjKnots == TRUE) {
-      
+
+    else if (input$adjKnots == TRUE) {
+
       regObj <- gam(log10(Flow.y) ~ s(log10(Flow.x), by = factor(event), bs = "fs", k = input$knots),
                     data = regDat, select = TRUE)
-      
+
     }
-    
+
     regDF <- augment(regObj)
 
     p <- ggplot(regDF, aes(x = .fitted, y = .resid)) +
