@@ -25,7 +25,7 @@ To install and launch MISTEuv;
 ``` r
 install.packages("devtools")
 
-devtools::install_github("bbreaker-USGS/MISTEuv")
+devtools::install_github("bbreaker/MISTEuv")
 
 MISTEuv::MISTEuvgui()
 ```
