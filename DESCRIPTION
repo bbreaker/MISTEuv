@@ -11,7 +11,7 @@ Copyright: This software is in the public domain because it contains materials
 Encoding: UTF-8
 LazyData: true
 Authors@R: c( person("Brian", "Breaker", role = c("aut","cre"),
-    email = "bbreaker@usgs.gov"),
+    email = "brian.k.breaker@usace.army.mil"),
     person("William", "Asquith", role = c("aut"),
     email = "wasquith@usgs.gov"))
 Maintainer: Brian Breaker <bbreaker@usgs.gov>
